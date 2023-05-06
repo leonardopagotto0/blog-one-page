@@ -4,26 +4,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Gateway</title>
 </head>
-<script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get('id');
+    <script async="false">
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
 
-    fetch(`/${id}.json`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).then(res => {
-        res.json().then(data => {
-            const jsonFile = document.querySelector('.json-file');
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', `/${id}.json`);
+        
+        xhr.send(null);
+        
+        xhr.onload = function() {
+            const body = document.querySelector('body');
+            const data = xhr.response;
+            
+            const jsonFile = document.createElement('span');
+            jsonFile.className = 'json-file';
             jsonFile.innerHTML = JSON.stringify(data);
-        })
-    });
-
-</script>
+            window.innerHTML = jsonFile;
+        }
+    </script>
 <body>
-    <span class="json-file"></span>
+    <h1>teste</h1>
 </body>
 </html>
